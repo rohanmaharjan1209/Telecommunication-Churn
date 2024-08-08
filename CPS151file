@@ -1,0 +1,37 @@
+SELECT
+
+customer.customer_id,
+
+(CASE WHEN services.internet_service = 'DSL' THEN
+
+customer.bandwidth_gp_year END) AS avg_bandwidth_dsl,
+
+(CASE WHEN services.internet_service = 'Fiber Optic' THEN
+
+customer.bandwidth_gp_year END) AS avg_bandwidth_fiber_optic
+
+FROM customer
+
+JOIN contract ON customer.contract_id = contract.contract_id
+
+JOIN services ON customer.customer_id = services.customer_id
+
+WHERE contract.duration = 'One year';
+
+SELECT
+
+AVG(CASE WHEN services.internet_service = 'DSL' THEN
+
+customer.bandwidth_gp_year END) AS avg_bandwidth_dsl,
+
+AVG(CASE WHEN services.internet_service = 'Fiber Optic' THEN
+
+customer.bandwidth_gp_year END) AS avg_bandwidth_fiber_optic
+
+FROM customer
+
+JOIN contract ON customer.contract_id = contract.contract_id
+
+JOIN services ON customer.customer_id = services.customer_id
+
+WHERE contract.duration = 'One year';
